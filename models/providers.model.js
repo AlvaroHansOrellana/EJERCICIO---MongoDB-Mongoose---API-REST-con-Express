@@ -2,45 +2,66 @@ const mongoose = require('mongoose');
 require('../config/db_mongo') // Conexión a BBDD MongoDB
 
 
-const objectSchema = {
-    companyName: { 
-        type: String, 
-        required: true,
-        unique: true 
-    },
-    website: {
-        type: String,
-        required: true,
-        validate: {
-            validator: function(url){
-                if(url.indexOf('http') != -1)
-                    return true;
-                else {
-                    return false;
-                }
-            }, 
-            message: "Porfa, introduce una URL válida"
-        }
-    },
-    image:{
-        type: String,
-        validate: {
-            validator: function(url){
-                if(url.indexOf('.jpg') != -1 || url.indexOf('.png') != -1)
-                    return true;
-                else {
-                    return false;
-                }
-            }, 
-            message: "Porfa, sólo imágenes JPG o PNG"
-        }
-    }
-}
+// const objectSchema = {
+//     companyName: { 
+//         type: String, 
+//         required: true,
+//         unique: true 
+//     },
+//     website: {
+//         type: String,
+//         required: true,
+//         validate: {
+//             validator: function(url){
+//                 if(url.indexOf('http') != -1)
+//                     return true;
+//                 else {
+//                     return false;
+//                 }
+//             }, 
+//             message: "Porfa, introduce una URL válida"
+//         }
+//     },
+//     image:{
+//         type: String,
+//         validate: {
+//             validator: function(url){
+//                 if(url.indexOf('.jpg') != -1 || url.indexOf('.png') != -1)
+//                     return true;
+//                 else {
+//                     return false;
+//                 }
+//             }, 
+//             message: "Porfa, sólo imágenes JPG o PNG"
+//         }
+//     }
+// }
+
+
 
 // Crear el esquema
-const providerSchema = mongoose.Schema(objectSchema);
-// Crear el modelo
-const Provider = mongoose.model('Provider', providerSchema);
+
+
+const providerSchema = new mongoose.Schema({
+    company_name: { 
+        type: String, 
+        required: true 
+    },
+    CIF: { 
+        type: String, 
+        required: true 
+    },
+    address: { 
+        type: String, 
+        required: true 
+    },
+    url_web: { 
+        type: String, 
+        required: true 
+    }
+  });
+  
+  module.exports = mongoose.model('Provider', providerSchema);
 
 module.exports = Provider;
 
